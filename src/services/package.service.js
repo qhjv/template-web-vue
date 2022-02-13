@@ -6,7 +6,7 @@ import { forEach } from "lodash";
 import BaseService from "./base.service";
 
 // databases
-import orderExcelDatabase from "@/database/orderExcel.database";
+// import orderExcelDatabase from "@/database/orderExcel.database";
 
 class PackageService extends BaseService {
   instance = axios.create();
@@ -206,35 +206,35 @@ class PackageService extends BaseService {
       });
   }
 
-  updateDraftPackage(payload, cancelToken) {
-    let url_ =
-      this.baseUrl + `/api/v1/package/draft/update/${payload.package_draft_id}`;
-    const options = {
-      method: "POST",
-      url: url_,
-      headers: {
-        Accept: "application/json",
-        "Shop-Code": this.getShopCode(),
-        "Content-Type": "application/json",
-        Authorization: this.getAccessToken(),
-      },
-      data: { package: payload.package },
-      cancelToken,
-    };
-
-    return this.instance
-      .request(options)
-      .catch((_error) => {
-        return _error;
-      })
-      .then((_response) => {
-        return {
-          ..._response.data,
-          orderId: payload.orderId,
-          draftId: payload.package_draft_id,
-        };
-      });
-  }
+  // updateDraftPackage(payload, cancelToken) {
+  //   let url_ =
+  //     this.baseUrl + `/api/v1/package/draft/update/${payload.package_draft_id}`;
+  //   const options = {
+  //     method: "POST",
+  //     url: url_,
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Shop-Code": this.getShopCode(),
+  //       "Content-Type": "application/json",
+  //       Authorization: this.getAccessToken(),
+  //     },
+  //     data: { package: payload.package },
+  //     cancelToken,
+  //   };
+  //
+  //   return this.instance
+  //     .request(options)
+  //     .catch((_error) => {
+  //       return _error;
+  //     })
+  //     .then((_response) => {
+  //       return {
+  //         ..._response.data,
+  //         orderId: payload.orderId,
+  //         draftId: payload.package_draft_id,
+  //       };
+  //     });
+  // }
 
   saveDraftPackage(payload, cancelToken) {
     let url_ = this.baseUrl + `/api/v1/package/draft`;
@@ -339,6 +339,31 @@ class PackageService extends BaseService {
 
   uploadImage(payload, cancelToken) {
     let url_ = this.baseUrl + `/api/v1/services/images/upload`;
+    const options = {
+      method: "POST",
+      url: url_,
+      headers: {
+        Accept: "application/json",
+        "Shop-Code": this.getShopCode(),
+        "Content-Type": "application/json",
+        Authorization: this.getAccessToken(),
+      },
+      data: payload,
+      cancelToken,
+    };
+
+    return this.instance
+      .request(options)
+      .catch((_error) => {
+        return _error.response;
+      })
+      .then((_response) => {
+        return _response.data;
+      });
+  }
+
+  uploadFilesToGs(payload, cancelToken) {
+    let url_ = this.baseUrl + `/api/v1/service/images/upload-gs`;
     const options = {
       method: "POST",
       url: url_,
@@ -501,9 +526,9 @@ class PackageService extends BaseService {
 
     return result;
   }
-  async browserGetOrderExcel() {
-    return await orderExcelDatabase.get();
-  }
+  // async browserGetOrderExcel() {
+  //   return await orderExcelDatabase.get();
+  // }
 }
 
 export default PackageService;

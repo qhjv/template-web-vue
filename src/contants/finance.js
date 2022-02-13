@@ -46,7 +46,7 @@ export const SUB_FIELDS = [
   },
   {
     key: "return_fee",
-    title: "Phí chuyển hoàn",
+    title: "Phí hoàn hàng",
     orderAuditHistory: 3,
   },
   {
@@ -134,7 +134,7 @@ export const SUB_FIELDS_AUDIT = [
   },
   {
     key: "return_fee", // Chưa thấy trường mới
-    title: "Phí chuyển hoàn",
+    title: "Phí hoàn hàng",
     orderAuditHistory: 3,
   },
   {
@@ -167,11 +167,12 @@ export const SUB_FIELDS_AUDIT = [
     title: "Phí DV cấn trừ",
     orderAuditHistory: 9,
   },
-  {
-    key: "return_debt_money",
-    title: "Tiền nợ trả hàng",
-    orderAuditHistory: 9.1,
-  },
+  // Tạm ẩn trường này vì chưa dùng trên web
+  // {
+  //   key: "return_debt_money",
+  //   title: "Tiền nợ trả hàng",
+  //   orderAuditHistory: 9.1,
+  // },
   {
     key: "debt_money", // Chưa thấy trường mới
     title: "Nợ tồn",
@@ -185,3 +186,8 @@ export const OPTION_AUDIT_ONE_TIME_PER_WEEK = [
   "payment_once_per_week_wednesday",
   "payment_once_per_week_thursday",
 ];
+
+export const MIN_AUDIT_MONEY = {
+  value: 50000,
+  format: "50,000 VND",
+};

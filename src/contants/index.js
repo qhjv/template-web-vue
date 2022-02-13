@@ -1,18 +1,3 @@
-export const BASE_URL = process.env.VUE_APP_BASE_URL;
-export const REDIRECT_URI = process.env.VUE_APP_REDIRECT_URI;
-export const REDIRECT_URI_LOGIN = process.env.VUE_APP_REDIRECT_URI_LOGIN;
-export const REDIRECT_URI_LOGOUT = process.env.VUE_APP_REDIRECT_URI_LOGOUT;
-export const GMAP_TILE = process.env.VUE_APP_GMAP_TILE;
-export const GMAP_STATIC_URL = process.env.VUE_APP_GMAP_STATIC_URL;
-export const URL_GCHAT = process.env.VUE_APP_URL_GCHAT;
-export const URL_WS_V2 = process.env.VUE_APP_URL_WS_V2;
-export const WS_KEY_V2 = process.env.VUE_APP_WS_KEY_V2;
-export const BASE_URL_ROUTING = process.env.VUE_APP_BASE_URL_ROUTING;
-export const API_KEY_ROUTING = process.env.VUE_APP_API_KEY_ROUTING;
-export const VERSION = process.env.VUE_APP_VERSION;
-export const CACHE_URL = process.env.VUE_APP_CACHE_URL;
-export const THUNDER_URL = process.env.VUE_APP_THUNDER_URL;
-
 export const OPERATE_STATUS_TITLE = {
   1: "Phát sinh & Đã lấy",
   2: "Delay & Hủy lấy",
@@ -37,10 +22,10 @@ export const ORDER_STATUS = [
     key: "all",
     title: "Tất cả",
   },
-  // {
-  //   key: -1,
-  //   title: "Đơn hàng hủy",
-  // },
+  {
+    key: -1,
+    title: "Đơn hàng hủy",
+  },
   {
     key: 1,
     title: "Chưa tiếp nhận",

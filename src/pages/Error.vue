@@ -13,12 +13,12 @@
           {{ description }}
         </p>
         <div class="t-mt-6">
-          <a
-            @click="$router.push({ name: 'overview' })"
-            class="t-text-base t-font-medium t-text-green-600"
-          >
-            Trang chủ<span aria-hidden="true"> &rarr;</span>
-          </a>
+          <!--          <a-->
+          <!--            @click="$router.push({ name: 'overview' })"-->
+          <!--            class="t-text-base t-font-medium t-text-green-600"-->
+          <!--          >-->
+          <!--            Trang chủ<span aria-hidden="true"> &rarr;</span>-->
+          <!--          </a>-->
         </div>
       </div>
     </main>
@@ -27,19 +27,19 @@
 
 <script>
 export default {
-  name: 'Empty',
+  name: "Empty",
   data() {
     return {
-      message: 'Lỗi hệ thống',
+      message: "Lỗi hệ thống",
       description:
-        'Chúng tôi chân thành xin lỗi vì sự cố này. Vui lòng liên hệ CSKH để được hỗ trợ.',
+        "Chúng tôi chân thành xin lỗi vì sự cố này. Vui lòng liên hệ CSKH để được hỗ trợ.",
     };
   },
   created() {
-    const params = this.$route.params;
-
-    this.message = params.message || this.message;
-    this.description = params.description || this.description;
+    // const params = this.$route.params;
+    //
+    // this.message = params.message || this.message;
+    // this.description = params.description || this.description;
   },
 };
 </script>

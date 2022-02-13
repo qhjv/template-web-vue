@@ -1,6 +1,9 @@
-import financeService from '@/services/finance.service';
+import financeService from "@/services/finance.service";
+import { SUM_FIELDS, SUB_FIELDS } from "@/contants/finance";
 
-import {SUM_FIELDS_AUDIT, SUB_FIELDS_AUDIT} from '@/contants/finance';
+import { SUM_FIELDS_AUDIT, SUB_FIELDS_AUDIT } from "@/contants/finance";
+import { safeJSONParse } from "@/utils";
+import { KEY_CACHE_NEXT_AUDIT } from "@/contants";
 
 const financeModule = {
   namespaced: true,
@@ -18,11 +21,11 @@ const financeModule = {
     },
     vatBillStatus: [
       // { key: "all", title: "Tất cả" },
-      {key: 'draft', title: 'Chờ phát hành'},
-      {key: 'expired', title: 'Quá hạn'},
-      {key: 'canceled', title: 'Đã hủy'},
-      {key: 'released', title: 'Đã phát hành'},
-      {key: 'failed', title: 'Phát hành lỗi'},
+      { key: "draft", title: "Chờ phát hành" },
+      { key: "expired", title: "Quá hạn" },
+      { key: "canceled", title: "Đã hủy" },
+      { key: "released", title: "Đã phát hành" },
+      { key: "failed", title: "Phát hành lỗi" },
     ],
   },
   mutations: {
@@ -33,7 +36,7 @@ const financeModule = {
       state.lastAuditData = state.nextAuditData;
       state.nextAuditData = payload;
       if (!state.listPkgs) {
-        const _listPkgs = payload.list_pkgs || {};
+        let _listPkgs = payload.list_pkgs || {};
         _listPkgs.store_fee = _listPkgs.store || 0;
         _listPkgs.insurance_fee = _listPkgs.insurance || 0;
         _listPkgs.change_address_fee = _listPkgs.change_address || 0;
@@ -58,21 +61,91 @@ const financeModule = {
     },
   },
   actions: {
-    async getBillDetail({commit}, payload) {
-      commit('updateDetail', {id: payload.id, is_loading_get_detail: true});
-      let detailInfo = {id: payload.id};
+    async getNextAuditData({ commit }, payload) {
+      commit("setLoading", true);
+
+      try {
+        const metricNextAudit = safeJSONParse(
+          localStorage.getItem(KEY_CACHE_NEXT_AUDIT)
+        );
+
+        let nextAuditData = {};
+
+        if (
+          !metricNextAudit.ttl ||
+          metricNextAudit.ttl < new Date().getTime()
+        ) {
+          const response = await financeService.getNextAuditData(payload);
+
+          nextAuditData = response?.data?.data?.next || {};
+
+          localStorage.setItem(
+            KEY_CACHE_NEXT_AUDIT,
+            JSON.stringify({
+              ttl: new Date().getTime() + 5 * 60 * 1000 - 1000,
+              data: nextAuditData,
+            })
+          );
+        } else {
+          nextAuditData = metricNextAudit?.data || {};
+        }
+
+        const fields = [
+          "sale_off",
+          "refund_money",
+          "deliver_fee",
+          "return_fee",
+          "extra_fee",
+          "deb_bill",
+          "transfer_fee",
+        ];
+
+        for (const field of fields) {
+          nextAuditData[field] = Math.abs(nextAuditData[field] || 0);
+        }
+
+        nextAuditData.sale_off = Math.abs(nextAuditData.sale_off || 0);
+
+        nextAuditData.pick_money = Math.abs(
+          nextAuditData.pick_money || nextAuditData.pick_mon || 0
+        );
+
+        let total_sum = 0;
+        let total_sub = 0;
+
+        for (const field of SUM_FIELDS) {
+          total_sum += Math.abs(nextAuditData[field.key] || 0);
+        }
+
+        for (const field of SUB_FIELDS) {
+          total_sub += Math.abs(nextAuditData[field.key] || 0);
+        }
+
+        nextAuditData.total_sum = total_sum;
+        nextAuditData.total_sub = total_sub;
+
+        commit("setNextAuditData", nextAuditData);
+      } catch (error) {
+        console.log(error);
+      }
+      commit("setLoading", false);
+    },
+    async getBillDetail({ commit }, payload) {
+      commit("updateDetail", { id: payload.id, is_loading_get_detail: true });
+      let detailInfo = { id: payload.id };
+      let loaded_detail_success = false;
 
       try {
         const response = await financeService.getBillDetail({
           id: payload.id,
         });
 
-        const packages = [];
+        let packages = [];
 
-        const responseData = response.data.data;
+        const responseData = response?.data?.data;
 
         if (responseData) {
-          const listPackgages = responseData.packages || [];
+          const listPackgages = responseData?.packages || [];
           for (const p of listPackgages) {
             if (p.Package) {
               const packageItem = p.Package;
@@ -81,24 +154,24 @@ const financeModule = {
                 if (!detailInfo[sumField.key]) {
                   detailInfo[sumField.key] = 0;
                 }
-                detailInfo[sumField.key] += packageItem[sumField.key] ?
-                  Math.abs(Number(packageItem[sumField.key])) :
-                  0;
+                detailInfo[sumField.key] += packageItem[sumField.key]
+                  ? Math.abs(Number(packageItem[sumField.key]))
+                  : 0;
               }
               for (const subField of SUB_FIELDS_AUDIT) {
                 // get debt_money, transfer_fee from outside
                 if (
-                  subField.key === 'debt_money' ||
-                  subField.key === 'transfer_fee'
+                  subField.key === "debt_money" ||
+                  subField.key === "transfer_fee"
                 ) {
                   continue;
                 }
                 if (!detailInfo[subField.key]) {
                   detailInfo[subField.key] = 0;
                 }
-                detailInfo[subField.key] += packageItem[subField.key] ?
-                  Math.abs(Number(packageItem[subField.key])) :
-                  0;
+                detailInfo[subField.key] += packageItem[subField.key]
+                  ? Math.abs(Number(packageItem[subField.key]))
+                  : 0;
               }
             }
 
@@ -118,33 +191,37 @@ const financeModule = {
         }
 
         detailInfo.packages = packages;
+
+        loaded_detail_success = true;
       } catch (error) {
         console.log(error);
       }
 
-      commit('updateDetail', {
+      commit("updateDetail", {
         ...detailInfo,
         is_loading_get_detail: false,
         loaded_detail_success,
       });
     },
-    async getAuditHistory({commit}, payload) {
+    async getAuditHistory({ commit }, payload) {
       try {
         const response = await financeService.getAuditHistory(payload);
 
         let bills = [];
 
-        if (!payload.type || payload.type === 'all') {
-          bills = response.data.data.list_all_bill || [];
-        } else if (payload.type === 'refund') {
-          bills = response.data.data.his_audit_refund.list || [];
-        } else if (payload.type === 'debt') {
-          bills = response.data.data.his_audit_debt.list || [];
-        } else if (payload.type === 'audit') {
-          bills = response.data.data.his.list || [];
+        if (!payload.type || payload.type === "all") {
+          bills = response?.data?.data?.list_all_bill || [];
+        } else if (payload.type === "refund") {
+          bills = response?.data?.data?.his_audit_refund?.list || [];
+        } else if (payload.type === "debt") {
+          bills = response?.data?.data?.his_audit_debt?.list || [];
+        } else if (payload.type === "audit") {
+          bills = response?.data?.data?.his?.list || [];
         }
 
-        commit('setAuditBills', bills);
+        if (!bills[0]) bills = [];
+
+        commit("setAuditBills", bills);
       } catch (error) {
         console.log(error);
       }

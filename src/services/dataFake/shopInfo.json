@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "data": {
+    "Shop": null,
+    "PickAddress": [],
+    "Config": null,
+    "ShopsService": null,
+    "ShopStaff": null,
+    "VAT": null,
+    "ShopNote": null,
+    "IdentityCard": null
+  }
+}

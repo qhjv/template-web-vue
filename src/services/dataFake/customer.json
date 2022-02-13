@@ -1,0 +1,48 @@
+{
+  "listCustomer": [
+    {
+      "shop_code": "S12270716",
+      "customer_district_id": 2006,
+      "customer_tel": "0949207887",
+      "customer_ward_id": 22734,
+      "created": "2021-09-13T08:52:38Z",
+      "customer_street_id": null,
+      "order": 684468107,
+      "customer_fullname": "dung baby",
+      "customer_first_address": "khu 3 đường lam sơn - khu 3",
+      "customer_province_id": 865,
+      "customer_province_name": "Thanh Hóa",
+      "district_type": "7",
+      "parent_id": "865",
+      "customer_district_name": "Huyện Thọ Xuân",
+      "customer_ward_name": "Thị trấn Thọ Xuân",
+      "customer_street_name": "",
+      "hamlet_address_id": "",
+      "hamlet_address": "",
+      "special_address_id": "",
+      "special_address": ""
+    },
+    {
+      "shop_code": "S4740224",
+      "customer_district_id": 1596,
+      "customer_tel": "0943898373",
+      "customer_ward_id": 13547,
+      "created": "2021-09-13T08:52:37Z",
+      "customer_street_id": null,
+      "order": 766589720,
+      "customer_fullname": "A. Vũ Đình Đức - 0943898373",
+      "customer_first_address": "345 Y Moan Phường Tân Lợi Thành phố Buôn Ma Thuột Đắk Lắk - Y Moan",
+      "customer_province_id": 843,
+      "customer_province_name": "Đắk Lắk",
+      "district_type": "3",
+      "parent_id": "843",
+      "customer_district_name": "Thành phố Buôn Ma Thuột",
+      "customer_ward_name": "Phường Tân Lợi",
+      "customer_street_name": "",
+      "hamlet_address_id": "",
+      "hamlet_address": "",
+      "special_address_id": "",
+      "special_address": ""
+    }
+  ]
+}

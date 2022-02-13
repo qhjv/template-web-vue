@@ -2,6 +2,7 @@
 
 import common from "@/utils/common";
 import services from "@/services";
+import { isEmptyObject } from "@/utils";
 
 const shopModule = {
   namespaced: true,
@@ -19,6 +20,7 @@ const shopModule = {
     loadingFullInfo: false,
     allPickAddressList: [],
     allStaffList: [],
+    returnPackageConfig: {},
   },
   mutations: {
     setFullInfoShop(state, payload) {
@@ -101,6 +103,9 @@ const shopModule = {
         ...payload,
       };
     },
+    setReturnPackageConfig(state, config) {
+      state.returnPackageConfig = config;
+    },
   },
   actions: {
     async getFullInfoShop({ commit }) {
@@ -115,10 +120,37 @@ const shopModule = {
       }
       commit("setFullInfoShop", res.data);
     },
+
+    async getShopConfig({ commit }) {
+      try {
+        const response = await services.$shop.getShopConfig();
+        if (response.success) {
+          this.return_package = response.data.policy.return_package;
+          commit("setReturnPackageConfig", response.data.policy.return_package);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   getters: {
     role: (state) => state.ShopStaff.role,
+    notDeliverOptionTag: (state) => {
+      if (isEmptyObject(state.returnPackageConfig)) {
+        return 0;
+      }
+      if (state.returnPackageConfig.not_receive_return_package) {
+        return 16;
+      }
+      if (state.returnPackageConfig.not_auto_store_return_immediately) {
+        return 15;
+      }
+      if (state.returnPackageConfig.auto_store_package.is_selected) {
+        return 14;
+      }
+      return 0;
+    },
   },
 };
 

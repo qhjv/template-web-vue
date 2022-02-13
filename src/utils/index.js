@@ -96,3 +96,9 @@ export const nFormatter = function (num) {
   }
   return num + " Đ";
 };
+
+export const getTotalPages = (total, limit) => {
+  if (total % limit === 0) return total / limit;
+
+  return Math.floor(total / limit) + 1;
+};

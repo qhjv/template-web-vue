@@ -3,7 +3,6 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  prefix: "t-",
   purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx,html}"],
   darkMode: false, // or 'media' or 'class'
   theme: {

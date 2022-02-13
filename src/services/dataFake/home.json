@@ -1,0 +1,28 @@
+{
+  "efficacyReports": [
+    { "key": 1, "status": "Hoàn thành", "quantity": "80", "rate": "10 %" },
+    { "key": 2, "status": "Không giao được", "quantity": "80", "rate": "10 %" },
+    { "key": 3, "status": "Hủy", "quantity": "80", "rate": "10 %" },
+    { "key": 4, "status": "Bồi hoàn", "quantity": "80", "rate": "10 %" },
+    { "key": 5, "status": "Đang giao", "quantity": "80", "rate": "10 %" },
+    { "key": 6, "status": "Chờ lấy", "quantity": "80", "rate": "10 %" }
+  ],
+  "provinceReports": [
+    { "key": 1, "status": "Hà Nội", "quantity": "80", "rate": "10 %" },
+    { "key": 2, "status": "Hồ Chí Minh", "quantity": "80", "rate": "10 %" },
+    { "key": 3, "status": "Đà Nẵng", "quantity": "80", "rate": "10 %" },
+    { "key": 4, "status": "Hải Phòng", "quantity": "80", "rate": "10 %" },
+    { "key": 5, "status": "Vinh", "quantity": "80", "rate": "10 %" },
+    { "key": 6, "status": "Nghệ An", "quantity": "80", "rate": "10 %" },
+    { "key": 7, "status": "Thanh Hóa", "quantity": "80", "rate": "10 %" }
+  ],
+  "districtReports": [
+    { "key": 1, "status": "Quận Bình Tân", "quantity": "80", "rate": "10 %" },
+    { "key": 2, "status": "Quận Lê Chân", "quantity": "80", "rate": "10 %" },
+    { "key": 3, "status": "Quận Cái Răng", "quantity": "80", "rate": "10 %" },
+    { "key": 4, "status": "Quận 3", "quantity": "80", "rate": "10 %" },
+    { "key": 5, "status": "Quận 2", "quantity": "80", "rate": "10 %" },
+    { "key": 6, "status": "Quận 1", "quantity": "80", "rate": "10 %" },
+    { "key": 7, "status": "Quận 0", "quantity": "80", "rate": "10 %" }
+  ]
+}

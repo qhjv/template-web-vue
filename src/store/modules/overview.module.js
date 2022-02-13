@@ -1,5 +1,4 @@
 import overviewService from "@/services/overview.service";
-import moment from "moment";
 
 const orderModule = {
   namespaced: true,
@@ -15,9 +14,9 @@ const orderModule = {
     query: {
       range: "7_day_before",
       type: "top_selling",
+      from: "",
+      to: "",
     },
-    from: moment().subtract(7, "day").startOf("day"),
-    to: moment().endOf("day"),
     returnPackageData: {
       current: {
         total_packages: 0,
@@ -81,31 +80,21 @@ const orderModule = {
         count_products: 0,
         total_COD: 0,
       };
-      if (packageData.customer_reject !== undefined) {
-        rejectData.incorrect_product = packageData.customer_reject
-          .incorrect_product
-          ? packageData.customer_reject.incorrect_product
-          : defaultData;
-        rejectData.not_view_or_try = packageData.customer_reject.not_view_or_try
-          ? packageData.customer_reject.not_view_or_try
-          : defaultData;
-        rejectData.miss_product = packageData.customer_reject.miss_product
-          ? packageData.customer_reject.miss_product
-          : defaultData;
-        rejectData.break_product = packageData.customer_reject.break_product
-          ? packageData.customer_reject.break_product
-          : defaultData;
-        rejectData.other_reasons = packageData.customer_reject.other_reasons
-          ? packageData.customer_reject.other_reasons
-          : defaultData;
-        return rejectData;
-      } else {
-        rejectData.incorrect_product = defaultData;
-        rejectData.not_view_or_try = defaultData;
-        rejectData.miss_product = defaultData;
-        rejectData.break_product = defaultData;
-        rejectData.other_reasons = defaultData;
-      }
+      rejectData.shop_cancel = packageData.shop_cancel
+        ? packageData.shop_cancel
+        : defaultData;
+      rejectData.cannot_contact = packageData.cannot_contact
+        ? packageData.cannot_contact
+        : defaultData;
+      rejectData.customer_reject = packageData.customer_reject
+        ? packageData.customer_reject
+        : defaultData;
+      rejectData.other_reasons = packageData.other_reasons
+        ? packageData.other_reasons
+        : defaultData;
+      rejectData.export_exchange = packageData.export_exchange
+        ? packageData.export_exchange
+        : defaultData;
       return rejectData;
     },
   },
@@ -119,20 +108,16 @@ const orderModule = {
     setReturnPackageData(state, payload) {
       state.returnPackageData = payload;
     },
-    setQuery(state, { range = "", type = "" }) {
-      if (range) {
-        state.query.range = range;
-      }
+    setQuery(state, { range = "", type = "", from = "", to = "" }) {
       if (type) {
         state.query.type = type;
       }
-    },
-    setDateTimeFilter(state, { from = "", to = "" }) {
-      if (from) {
-        state.from = from;
-      }
-      if (to) {
-        state.to = to;
+      state.query.range = range;
+      state.query.from = from;
+      state.query.to = to;
+
+      if (state.query.from && state.query.to) {
+        state.query.range = "custom";
       }
     },
   },
@@ -142,7 +127,6 @@ const orderModule = {
         const query = payload || state.query;
         const response = await overviewService.getTopProduct(query);
         if (response.data.success) {
-          // console.log(response.data.data);
           let transformData = response.data.data;
           for (let key in transformData) {
             transformData[key].map((item) => {

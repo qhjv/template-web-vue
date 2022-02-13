@@ -1,0 +1,185 @@
+{
+  "success": true,
+  "data": {
+    "next": {
+      "pick_mon": 509000,
+      "deliver_fee": 35000,
+      "sale_off": 0,
+      "audit_mon": 0,
+      "return_fee": 0,
+      "insurance_fee": 0,
+      "store_fee": 0,
+      "transfer_fee": 5500,
+      "change_address_fee": 0,
+      "prepayment_transaction": 39000,
+      "co_check_fee": 0,
+      "count": 1,
+      "return_debt": 0,
+      "pre_paid_amount": 0,
+      "package_ids": ["5ebf917a-6d80-44e3-9f4f-44ed0a6e4c24"],
+      "list_pkgs": {
+        "deliver": ["5ebf917a-6d80-44e3-9f4f-44ed0a6e4c24"],
+        "return": [],
+        "insurance": [],
+        "change_address": [],
+        "store": [],
+        "fee_paid": ["5ebf917a-6d80-44e3-9f4f-44ed0a6e4c24"],
+        "prepayment_transaction": [
+          "5ef5de57-cef8-4e1a-a7a8-5780c0a8211f",
+          "5ef5df56-2f14-43b1-a89a-577fc0a8211f",
+          "5ef5dfe6-6208-4f3e-89ee-5780c0a8211f"
+        ],
+        "delivery_money": [
+          "5ef5d31c-9a5c-4fd1-a5c9-4459c0a80266",
+          "5ef5dfe6-6208-4f3e-89ee-5780c0a8211f",
+          "5ef88504-0f24-42f4-8b00-4250c0a80266"
+        ],
+        "debt_bill_ids": []
+      },
+      "first_created": "2020-05-06 09:44:53",
+      "available_cash": 474000,
+      "delivery_money": 91000,
+      "deb_bill": 0,
+      "fee_paid": 0,
+      "activeMoneyFlowNew": true
+    },
+    "next_audit_refund": {
+      "refund_money": 0,
+      "insurance_fee": 0,
+      "transfer_fee": 0,
+      "cashback": 0,
+      "count": 0
+    },
+    "his": {
+      "total": {
+        "aud_total": 7,
+        "audit_mon": 23926300,
+        "total_fee": 1726700,
+        "pick_mon": 25521000,
+        "return_debt": 1688200
+      }
+    },
+    "his_audit_refund": {
+      "total": {
+        "audit_refund_total": 0,
+        "refund_money": 0,
+        "insurance_fee": 0,
+        "transfer_fee": 0,
+        "total_fee": 0,
+        "cashback": 0
+      }
+    },
+    "his_audit_debt": {
+      "total": {
+        "aud_total": 0,
+        "audit_mon": 0,
+        "total_fee": 0,
+        "pick_mon": 0,
+        "return_debt": 0
+      }
+    },
+    "his_quick_transfer": {
+      "total": {
+        "aud_total": 0,
+        "audit_mon": 0,
+        "deliver_fee": 0,
+        "total_fee": 0,
+        "pick_mon": 0
+      }
+    },
+    "list_all_bill": [
+      {
+        "bill": "BC634147268.S2953.200520",
+        "bill_id": "634147268",
+        "total": 6,
+        "pick_mon": 2181000,
+        "total_fee": 350200,
+        "audit_mon": 1905800,
+        "email_sent_at": "2020-05-20 00:15:06",
+        "transferred_at": "",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-20 00:15:06"
+      },
+      {
+        "bill": "BC630555008.S2953.180520",
+        "bill_id": "630555008",
+        "total": 6,
+        "pick_mon": 620500,
+        "total_fee": 215500,
+        "audit_mon": 440000,
+        "email_sent_at": "2020-05-18 00:15:06",
+        "transferred_at": "2020-05-18 18:15:02",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-18 00:15:06"
+      },
+      {
+        "bill": "BC625853678.S2953.150520",
+        "bill_id": "625853678",
+        "total": 5,
+        "pick_mon": 3547500,
+        "total_fee": 168000,
+        "audit_mon": 3379500,
+        "email_sent_at": "2020-05-15 00:15:08",
+        "transferred_at": "2020-05-15 18:15:01",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-15 00:15:08"
+      },
+      {
+        "bill": "BC622281488.S2953.130520",
+        "bill_id": "622281488",
+        "total": 7,
+        "pick_mon": 7120000,
+        "total_fee": 425500,
+        "audit_mon": 6694500,
+        "email_sent_at": "2020-05-13 00:15:06",
+        "transferred_at": "2020-05-13 18:15:01",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-13 00:15:06"
+      },
+      {
+        "bill": "BC618709775.S2953.110520",
+        "bill_id": "618709775",
+        "total": 7,
+        "pick_mon": 6485000,
+        "total_fee": 241500,
+        "audit_mon": 6243500,
+        "email_sent_at": "2020-05-11 00:15:05",
+        "transferred_at": "2020-05-11 18:15:01",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-11 00:15:05"
+      },
+      {
+        "bill": "BC614092415.S2953.080520",
+        "bill_id": "614092415",
+        "total": 4,
+        "pick_mon": 2354000,
+        "total_fee": 132500,
+        "audit_mon": 2243500,
+        "email_sent_at": "2020-05-08 00:15:11",
+        "transferred_at": "2020-05-08 18:15:01",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-08 00:15:11"
+      },
+      {
+        "bill": "BC610506035.S2953.060520",
+        "bill_id": "610506035",
+        "total": 6,
+        "pick_mon": 3213000,
+        "total_fee": 193500,
+        "audit_mon": 3019500,
+        "email_sent_at": "2020-05-06 00:15:05",
+        "transferred_at": "2020-05-06 18:15:02",
+        "is_debt": 0,
+        "return_debt": 0,
+        "created": "2020-05-06 00:15:05"
+      }
+    ],
+    "allow_trans_realtime": false
+  }
+}

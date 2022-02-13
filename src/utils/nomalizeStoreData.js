@@ -1,11 +1,11 @@
 export default function normalize(data) {
-  const ids = [];
-  const byId = {};
+  let ids = [];
+  let byId = {};
 
-  for (const item of data) {
+  for (let item of data) {
     ids.push(item.id);
     byId[item.id] = item;
   }
 
-  return {ids, byId};
+  return { ids, byId };
 }

@@ -6,7 +6,7 @@
  */
 import BaseService from "./base.service.js";
 import axios from "axios";
-import orderExcelDatabase from "@/database/orderExcel.database";
+// import orderExcelDatabase from "@/database/orderExcel.database";
 
 class AuthService extends BaseService {
   instance;
@@ -41,8 +41,8 @@ class AuthService extends BaseService {
       });
   }
 
-  async logoutIndexDBLocal() {
-    await orderExcelDatabase.clear();
-  }
+  // async logoutIndexDBLocal() {
+  //   await orderExcelDatabase.clear();
+  // }
 }
 export default AuthService;

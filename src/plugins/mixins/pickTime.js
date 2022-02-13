@@ -85,11 +85,27 @@ export default {
         if (result.success) {
           const pickUpList = get(result, "data.pick_up", []);
           forEach(pickUpList, (item) => {
-            map(item.time, (time) => {
-              time.type = item.type;
-              return time;
-            });
-            pickTimeList = uniqBy([...pickTimeList, ...item.time], "id");
+            if (item.type === "") {
+              map(item.time, (time) => {
+                time.text =
+                  time.text.trim().replace("ngày mai", "") +
+                  " " +
+                  item.name.trim().toLowerCase();
+                time.date = item.date;
+                time.work_shift = item.work_shift;
+                time.pick_time_slot = time.id;
+                time.key = item.date + time.id;
+                time.id = new Date(item.date).getTime() + time.id;
+                return time;
+              });
+              pickTimeList = uniqBy([...pickTimeList, ...item.time], "key");
+            } else {
+              map(item.time, (time) => {
+                time.type = item.type;
+                return time;
+              });
+              pickTimeList = uniqBy([...pickTimeList, ...item.time], "id");
+            }
           });
           if (options.convertToLabel) {
             pickTimeList = common.convertLabelValueDataSource({

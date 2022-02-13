@@ -1,6 +1,19 @@
 import orderService from "@/services/order.service";
 import nomalizeStoreData from "@/utils/nomalizeStoreData";
 
+export const formatResponseOrderDetail = (responseData) => {
+  const detailInfo = {};
+  detailInfo.current_station_route =
+    responseData?.Package?.current_station_route || {};
+  detailInfo.ship_fee_only = responseData?.Package?.ship_fee_only || 0;
+  detailInfo.final_ship_fee = responseData?.Package?.final_ship_fee || 0;
+  detailInfo.message = responseData?.Package?.message || "";
+  detailInfo.logs = responseData?.Package?.logs || [];
+  detailInfo.product = responseData?.Package?.product || [];
+
+  return detailInfo;
+};
+
 const orderModule = {
   namespaced: true,
   state: {
@@ -104,29 +117,33 @@ const orderModule = {
       commit("updateDetail", { id: payload.id, is_loading_get_detail: true });
       let detailInfo = { id: payload.id };
       let loaded_detail_success = false;
+      let loaded_detail_error = "";
 
       try {
         const response = await orderService.getOrderDetail(payload.id);
-        const responseData = response?.data?.data;
-        if (responseData) {
-          detailInfo = { ...detailInfo, ...responseData };
-          detailInfo.current_station_route =
-            responseData?.Package?.current_station_route || {};
-          detailInfo.ship_fee_only = responseData?.Package?.ship_fee_only || 0;
-          detailInfo.final_ship_fee =
-            responseData?.Package?.final_ship_fee || 0;
-          detailInfo.message = responseData?.Package?.message || "";
-          detailInfo.logs = responseData?.Package?.logs || [];
+        if (response?.data?.success) {
+          const responseData = response?.data?.data;
+          detailInfo = {
+            ...detailInfo,
+            ...responseData,
+            ...formatResponseOrderDetail(responseData),
+          };
           loaded_detail_success = true;
+        } else {
+          loaded_detail_error =
+            response?.data?.message || "Lấy chi tiết đơn hàng thất bại";
         }
       } catch (error) {
         console.log(error);
+        loaded_detail_error =
+          error?.response?.data?.message || "Lấy chi tiết đơn hàng thất bại";
       }
 
       commit("updateDetail", {
         ...detailInfo,
         is_loading_get_detail: false,
         loaded_detail_success,
+        loaded_detail_error,
       });
     },
   },
