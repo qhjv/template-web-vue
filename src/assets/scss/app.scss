@@ -180,66 +180,11 @@ button {
   }
 }
 
-.g-update-timeline {
-  .ant-timeline-item:first-child {
-    padding-bottom: 0;
-    .ant-timeline-item-head-blue {
-      margin-left: -2.5px;
-      background-color: #C4C4C4;
-      color: unset;
-      border: 0;
-      width: 14px;
-      height: 14px;
-      font-size: 25px;
-    }
-    .ant-timeline-item-head-blue::before{
-      color: #fff;
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      //background: url("../src/assets/icons/check.svg") no-repeat center;
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  .ant-timeline-item {
-    padding-bottom: 0;
-    .ant-timeline-item-head-blue {
-      margin-left: 0.5px;
-      background-color: #C4C4C4;
-      color: unset;
-      border: 0;
-      width: 9px;
-      height: 9px;
-    }
-
-    .ant-timeline-item-tail {
-      position: absolute;
-      top: 9px;
-      left: 4px;
-      height: calc(100% - 9px);
-      border-left: 2px solid var(--grayColor);
-    }
-
-    .ant-timeline-item-content {
-      min-height: unset;
-    }
-
-    .ant-timeline-item-content {
-      font-size: 16px;
-    }
-  }
-}
-
 .disable-div {
   pointer-events: none;
   opacity: 0.4;
 }
 
-//@import "./customize.scss";
-//@import "./modals.scss";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 html {
   font-family: "Roboto", sans-serif !important;

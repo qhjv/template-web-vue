@@ -1,4 +1,4 @@
-# template-web-vue
+# ecom-frontend
 
 ## Project setup
 ```
@@ -10,9 +10,19 @@ yarn install
 yarn serve
 ```
 
+### Compiles and hot-reloads for development with https
+```
+yarn serve --https=true
+```
+
 ### Compiles and minifies for production
 ```
 yarn build
+```
+
+### Run your unit tests
+```
+yarn test:unit
 ```
 
 ### Lints and fixes files
